@@ -112,9 +112,6 @@ val titleText = KTextView {
         withText(R.string.theme_chooser_dialog_image_dimming_switch_label)
     }
 
-    fun main() {
-        textTheme.isDisplayed()
-    }
 }
 
 
