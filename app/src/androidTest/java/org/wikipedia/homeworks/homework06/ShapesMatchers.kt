@@ -37,6 +37,10 @@ class CountOfSidesInMatcher : TypeSafeMatcher<Shape>() {
         return activity.countOfSides % 2 == 0
     }
 
+    override fun describeMismatchSafely(item: Shape?, mismatchDescription: Description?) {
+        super.describeMismatchSafely(item, mismatchDescription)
+    }
+
 }
 
 //Проверка цвета фигуры.
@@ -54,7 +58,7 @@ class ColorInMatcher(
 }
 
 //Проверка на наличие отрицательной длины стороны (недопустимо).+
-class NegativeLengthOfSideInMatcher(
+class NoNegativeLengthOfSideInMatcher(
 ) : TypeSafeMatcher<Shape>() {
     override fun describeTo(description: Description) {
         description.appendText("length should be positive ")
@@ -67,7 +71,7 @@ class NegativeLengthOfSideInMatcher(
 }
 
 //Проверка на наличие отрицательного количества сторон (недопустимо).
-class NegativeCountOfSideInMatcher(
+class NoNegativeCountOfSideInMatcher(
 ) : TypeSafeMatcher<Shape>() {
     override fun describeTo(description: Description) {
         description.appendText("count should be positive ")
@@ -99,11 +103,11 @@ class MatcherBuilder() {
     }
 
     fun negativeLength() {
-        listOfMatchers.add(NegativeLengthOfSideInMatcher())
+        listOfMatchers.add(NoNegativeLengthOfSideInMatcher())
     }
 
     fun negativeCountOfSide() {
-        listOfMatchers.add(NegativeCountOfSideInMatcher())
+        listOfMatchers.add(NoNegativeCountOfSideInMatcher())
     }
 
     // объеденит все матчеры и вернет их .
@@ -128,8 +132,8 @@ fun main() {
         ShapeLengthInRangeMatcher(0.1f, 6.0f),
         CountOfSidesInMatcher(),
         ColorInMatcher(listOf(Color.RED, Color.BLUE)),
-        NegativeLengthOfSideInMatcher(),
-        NegativeCountOfSideInMatcher()
+        NoNegativeLengthOfSideInMatcher(),
+        NoNegativeCountOfSideInMatcher()
     )
 
     val result = activities.filter { matchers.matches(it) }
