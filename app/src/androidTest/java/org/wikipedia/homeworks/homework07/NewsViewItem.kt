@@ -19,7 +19,7 @@ class NewsViewItem(matcher: Matcher<View>) :
         withId(R.id.view_list_card_header_menu)
     }
 
-    val items = KRecyclerView(
+    val newsRecycler = KRecyclerView(
         builder = {
             withId(R.id.news_cardview_recycler_view)
         },
