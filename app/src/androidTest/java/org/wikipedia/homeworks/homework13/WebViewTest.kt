@@ -1,6 +1,5 @@
 package org.wikipedia.homeworks.homework13
 
-import androidx.compose.ui.test.hasText
 import androidx.test.espresso.web.webdriver.Locator
 import androidx.test.ext.junit.rules.ActivityScenarioRule
 import com.kaspersky.kaspresso.testcases.api.testcase.TestCase
@@ -47,11 +46,29 @@ class WebViewTest : TestCase() {
             }.perform {
                 click()
             }
-            ArticleViewScreen {
-                wikiArticleCardView {
-                    hasText("References")
+            step("References") {
+                ArticleViewScreen {
+                    webView {
+                        withElement(Locator.ID, "References") {
+                            scroll()
+                            hasText("References")
+                        }
+                    }
                 }
             }
+            step("click 5") {
+                ArticleViewScreen {
+                    webView {
+                        withElement(
+                            Locator.XPATH, "//sup[@id='cite_ref-Universal_5-0']"
+                        ) {
+                            scroll()
+                            click()
+                        }
+                    }
+                }
+            }
+
 
         }
     }
